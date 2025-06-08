@@ -20,7 +20,7 @@ export async function useGetFAParticipants(postURL: string, opts: { removeHost: 
         throw new Error("Post must be a journal or General rated!")
     }
 
-    const comments = doc.querySelectorAll("comment-container")
+    const comments = doc.querySelectorAll("comment-container:not(.deleted-comment-container)")
 
     const users = new Map<string, RaffleUser>()
     const hostDisplayName = doc.querySelector('.submission-id-container .c-usernameBlockSimple__displayName')?.getAttribute('title').trim() ||
