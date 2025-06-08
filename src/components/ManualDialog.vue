@@ -29,7 +29,12 @@
                             </template>
                         </ManualUserFields>
                     </div>
-                    <Button icon="pi pi-plus" aria-label="Add participant manually" class="sm:mt-[3px] mt-[9px] !w-[30px] !h-[30px] sm:!w-[40px] sm:!h-[40px] sm:!absolute sm:right-12" rounded @click="addField" />
+                    <Button 
+                        icon="pi pi-plus" 
+                        aria-label="Add participant manually" 
+                        class="sm:mt-[3px] shrink-0 mt-[9px] !w-[30px] !h-[30px] sm:!w-[40px] sm:!h-[40px] sm:!absolute sm:right-12" 
+                        rounded @click="addField" 
+                    />
                 </div>
 
                 <div class="flex justify-end gap-2">

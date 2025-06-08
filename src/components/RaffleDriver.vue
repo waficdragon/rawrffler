@@ -4,7 +4,7 @@
       modal 
       @hide="onHideModal"
       :header="winners.length ? `So lucky!` : 'Raffle on progress...'" 
-      class="min-w-[25rem]"
+      class="w-full max-w-[25rem] sm:mx-0 mx-[5px]"
     >
       <div class="flex flex-col gap-5 items-center">
 

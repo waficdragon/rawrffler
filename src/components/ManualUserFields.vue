@@ -4,7 +4,7 @@
             tabindex="0"
             size="large" 
             shape="circle"
-            class="cursor-pointer mt-[-2px]"
+            class="cursor-pointer mt-[-2px] aspect-square"
             :pt="{ image: { class: 'object-cover' } }"
             v-bind="{ 
                 image: image.trim() || null, 
@@ -14,13 +14,13 @@
             @keydown.space="e => imageMenu.toggle(e)"
             @keydown.enter="e => imageMenu.toggle(e)"
         />
-        <Popover ref="imageMenu" class="w-100 max-w-[370px]">
-            <div class="flex items-center gap-1">
+        <Popover ref="imageMenu" class="w-100 max-w-[70dvw] sm:max-w-[370px]">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2">
                 <IconField>
                     <InputIcon class="pi pi-link" />
-                    <InputText v-model="image" placeholder="Image link or base64" size="small" autofocus @keydown.escape="closeImageMenu" />
+                    <InputText v-model="image" class="w-full" placeholder="Image link or base64" size="small" autofocus @keydown.escape="closeImageMenu" />
                 </IconField>
-                <span class="opacity-50">-or-</span>
+                <span class="opacity-50">or</span>
                 <FileUpload
                     mode="basic" 
                     @select="onFileSelect"
