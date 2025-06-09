@@ -29,7 +29,7 @@
                 </div>
 
             <Accordion class="mb-7">
-                <AccordionPanel value="0">
+                <AccordionPanel class="!border-[1px] rounded" value="0">
                     <AccordionHeader>JSON Example</AccordionHeader>
                     <AccordionContent>
                         <pre class="white-space-pre overflow-x-auto max-w-[70dvw] sm:max-w-[30rem]">

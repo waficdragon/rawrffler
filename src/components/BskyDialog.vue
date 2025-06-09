@@ -16,7 +16,7 @@
                     <InputText id="bsky-post" v-model="postURL" 
                         name="postURL" aria-describedby="post-help" autoFocus 
                         placeholder="https://bsky.app/profile/my.user.handle/post/xxxxxxxxxxxxxx/"
-                        :disabled="isFetching"
+                        type="text" :disabled="isFetching"
                     />
                     <Message size="small" id="post-help" severity="secondary" variant="simple">
                         URL to the Bsky raffle post. 

@@ -38,7 +38,7 @@
     > 
       <IconField v-if="participants.length" class="mb-5">
         <InputIcon class="pi pi-search" />
-        <InputText v-model="search" size="small" placeholder="Filter participants" showClear />
+        <InputText v-model="search" size="small" placeholder="Filter participants" />
       </IconField>
     </RaffleList>
 
@@ -66,6 +66,7 @@ const search = ref('')
 
 const dialogs = ref({
   openFADialog: false,
+  openFADialogAlt: false,
   openBskyDialog: false,
   openManualDialog: false,
   openJSONDialog: false

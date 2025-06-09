@@ -1,10 +1,10 @@
 <template>
     <Panel toggleable :header="`Winners (${displayWinnersList.length})`">
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div
                 v-for="winner in displayWinnersList"
                 :key="winner.id"            
-                class="flex gap-2 items-center"
+                class="flex flex-wrap gap-2 items-center w-full"
             >
                 <Avatar 
                     size="xlarge" 
@@ -16,7 +16,7 @@
                         icon: winner.image ? null : 'pi pi-user'
                     }"
                 />
-                <span class="text-xl">{{ winner.name }}</span>
+                <span class="text-xl wrap-break-word max-w-[40dvw]">{{ winner.name }}</span>
                 <Button 
                     icon="pi pi-times" 
                     rounded 

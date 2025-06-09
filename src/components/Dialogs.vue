@@ -1,20 +1,26 @@
 <template>
-    <FADialog
-      v-model="dialogs.openFADialog" 
-      @addParticipants="addParticipants"
-    />
+  <FADialog
+    v-model="dialogs" 
+    @addParticipants="addParticipants"
+  />
 
-    <BskyDialog 
-      v-model="dialogs.openBskyDialog" 
-      @addParticipants="addParticipants"
-    />
+  <FADialogAlt
+    v-model="dialogs" 
+    @addParticipants="addParticipants"
+  />
 
-    <JsonDialog v-model="dialogs.openJSONDialog" @addParticipants="addParticipants" />
-    <ManualDialog v-model="dialogs.openManualDialog" @addParticipants="addParticipants" />
+  <BskyDialog 
+    v-model="dialogs.openBskyDialog" 
+    @addParticipants="addParticipants"
+  />
+
+  <JsonDialog v-model="dialogs.openJSONDialog" @addParticipants="addParticipants" />
+  <ManualDialog v-model="dialogs.openManualDialog" @addParticipants="addParticipants" />
 </template>
 
 <script setup>
 import FADialog from '@/components/FADialog.vue'
+import FADialogAlt from '@/components/FADialogAlt.vue'
 import BskyDialog from '@/components/BskyDialog.vue'
 import ManualDialog from '@/components/ManualDialog.vue'
 import JsonDialog from '@/components/JsonDialog.vue'
