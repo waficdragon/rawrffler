@@ -36,6 +36,14 @@
                 @click="shuffleParticipants" 
             />
             <Button 
+                icon="pi pi-file-export"
+                v-tooltip.bottom="'Export to JSON'"
+                rounded
+                :disabled="!participants.length"
+                text 
+                @click="exportToJSON" 
+            />
+            <Button 
                 icon="pi pi-trash" 
                 severity="danger"
                 v-tooltip.bottom="'Clear participants'"
@@ -68,6 +76,24 @@ const shuffleParticipants = () => {
 const clearParticipants = () => {
     participants.value = []
     RaffleUser.resetCounter()
+}
+
+const exportToJSON = () => {
+    if (!participants.value.length) return
+
+    const toJsonParticipants = participants.value.map(participant => ({
+        name: participant.name,
+        image: participant.image
+    }))
+
+    const serialized = JSON.stringify(toJsonParticipants, null, 2)
+    const blob = new Blob([serialized], { type: "application/json" })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = "participants.json"
+    a.click()
+    URL.revokeObjectURL(url)
 }
 
 </script>

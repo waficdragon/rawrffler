@@ -5,8 +5,7 @@
                 <Button icon="pi pi-question" rounded aria-label="Dialog Help" @click="e => dialogInfo.toggle(e)" />
                 <Popover ref="dialogInfo" class="w-full max-w-[350px]">
                     This component will analyze a Bsky post and either gather all the users that left a comment at root level or
-                    users who reposted, or both! You can also filter them by your followers, or people who reposted. It may not work
-                    with users who have +300k followers, or posts with +300k reposts
+                    users who reposted, or both! You can also filter them by your followers, or people who reposted.
                 </Popover>
                 <div class="text-lg">Add from Bsky</div>
             </template>
@@ -80,9 +79,17 @@
                     <label for="must-reposted">Users must have reposted</label>
                 </div>
 
-                <div class="flex justify-end gap-2">
-                    <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
-                    <Button type="submit" label="Add" :icon="isFetching ? 'pi pi-spin pi-spinner' : ''" :disabled="isFetching" />
+                <div class="flex flex-col gap-2 mt-3 items-end">
+                    <div class="flex justify-end gap-2">
+                        <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
+                        <Button type="submit" label="Add" :icon="isFetching ? 'pi pi-spin pi-spinner' : ''" :disabled="isFetching" />
+                    </div>
+                    <Message 
+                        v-if="isFetching && (addReposts || mustBeAFollower || mustHaveReposted)" 
+                        size="small" severity="secondary" variant="simple"
+                    >
+                        It may take a bit, please, be patient
+                    </Message>
                 </div>
             </Form>
 

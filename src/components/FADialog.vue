@@ -5,7 +5,7 @@
                 <Button icon="pi pi-question" rounded aria-label="Dialog Help" @click="e => dialogInfo.toggle(e)" />
                 <Popover ref="dialogInfo" class="w-full max-w-[350px]">
                     This component will analyze a FA post and gather all the users that left a comment there.
-                    If a user left more than one comment, it won't be repeated. It also accepts journal URLs
+                    If a user left more than one comment, it won't be repeated. It also accepts journal URLs.
                 </Popover>
                 <div class="text-lg">Add from FurAffinity</div>
             </template>
