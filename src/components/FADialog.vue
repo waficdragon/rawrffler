@@ -12,13 +12,13 @@
 
             <Form v-slot="$form" :resolver validateOnSubmit @submit="submit">
                 <div class="flex flex-col gap-2 mt-3 mb-8">
-                    <label for="socials-post">Post or journal URL</label>
-                    <InputText id="socials-post" v-model="postURL" 
+                    <label for="fa-post">Post or journal URL</label>
+                    <InputText id="fa-post" v-model="postURL" 
                         name="postURL" aria-describedby="post-help" autoFocus 
                         placeholder="https://www.furaffinity.net/view/XXXXXXXX/"
                         :disabled="isFetching"
                     />
-                    <Message size="small" severity="secondary" variant="simple">
+                    <Message size="small" id="post-help" severity="secondary" variant="simple">
                         URL to the FA raffle or journal post. 
                         Host's profile must be public and post be General rated for this to work
                     </Message>

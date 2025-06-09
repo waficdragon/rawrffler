@@ -13,13 +13,13 @@
 
             <Form v-slot="$form" :resolver validateOnSubmit @submit="submit">
                 <div class="flex flex-col gap-2 mt-3 mb-8">
-                    <label for="socials-post">Post URL</label>
-                    <InputText id="socials-post" v-model="postURL" 
+                    <label for="bsky-post">Post URL</label>
+                    <InputText id="bsky-post" v-model="postURL" 
                         name="postURL" aria-describedby="post-help" autoFocus 
                         placeholder="https://bsky.app/profile/my.user.handle/post/xxxxxxxxxxxxxx/"
                         :disabled="isFetching"
                     />
-                    <Message size="small" severity="secondary" variant="simple">
+                    <Message size="small" id="post-help" severity="secondary" variant="simple">
                         URL to the Bsky raffle post. 
                     </Message>
                     <Message 
@@ -76,7 +76,7 @@
                 </div>
                 
                 <div class="flex items-center gap-2 mb-8">
-                    <Checkbox v-model="mustHaveRespoted" inputId="must-reposted" binary :disabled="isFetching" />
+                    <Checkbox v-model="mustHaveReposted" inputId="must-reposted" binary :disabled="isFetching" />
                     <label for="must-reposted">Users must have reposted</label>
                 </div>
 
@@ -103,7 +103,7 @@ const removeHost = ref(true)
 const addReplies = ref(true)
 const addReposts = ref(false)
 const mustBeAFollower = ref(false)
-const mustHaveRespoted = ref(false)
+const mustHaveReposted = ref(false)
 const dialogInfo = ref()
 
 const resolver = ({ values }) => {
@@ -131,7 +131,7 @@ const submit = async ({ valid }) => {
                 addReplies: addReplies.value,
                 addReposts: addReposts.value,
                 mustBeAFollower: mustBeAFollower.value,
-                mustHaveRespoted: mustHaveRespoted.value
+                mustHaveReposted: mustHaveReposted.value
             })
             emit('addParticipants', participants)
             visible.value = false

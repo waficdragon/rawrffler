@@ -4,7 +4,7 @@
       modal 
       @hide="onHideModal"
       :header="winners.length ? `So lucky!` : 'Raffle on progress...'" 
-      class="w-full max-w-[25rem] sm:mx-0 mx-[5px]"
+      class="w-full max-w-[27rem] sm:mx-0 mx-[5px]"
     >
       <div class="flex flex-col gap-5 items-center">
 
@@ -30,13 +30,14 @@
             <Avatar 
               size="xlarge" 
               shape="circle"
+              class="aspect-square"
               :pt="{ image: { class: 'object-cover' } }"
               v-bind="{
                   image: winner.image || null,
                   icon: winner.image ? null : 'pi pi-user'
               }"
             />
-            <span class="text-3xl">{{ winner.name }}</span>
+            <span class="text-3xl wrap-break-word">{{ winner.name }}</span>
           </div>
           <i class="pi pi-crown rounded-full p-2 bg-yellow-500 absolute top-[-.7rem] right-[-.7rem] text-black"></i>
         </div>

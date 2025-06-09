@@ -6,7 +6,7 @@ export async function useGetBskyParticipants(
     opts: { 
         removeHost: boolean, 
         mustBeAFollower: boolean,
-        mustHaveRespoted: boolean,
+        mustHaveReposted: boolean,
         addReplies: boolean, 
         addReposts: boolean
     }): Promise<RaffleUser[]> {
@@ -29,7 +29,7 @@ export async function useGetBskyParticipants(
         usersIterator = replies
     }
     
-    if (opts.addReposts || opts.mustHaveRespoted) {
+    if (opts.addReposts || opts.mustHaveReposted) {
         reposts = await getRepostedBy(did, postId)
         usersIterator = new Map([...usersIterator, ...reposts]) ?? reposts
     }
@@ -44,7 +44,7 @@ export async function useGetBskyParticipants(
             continue
         }
 
-        if (opts.mustHaveRespoted && !reposts.has(user.handle)) {
+        if (opts.mustHaveReposted && !reposts.has(user.handle)) {
             continue
         }
 
