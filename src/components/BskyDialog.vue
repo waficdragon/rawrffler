@@ -10,7 +10,7 @@
                 <div class="text-lg">Add from Bsky</div>
             </template>
 
-            <Form v-slot="$form" :resolver validateOnSubmit @submit="submit">
+            <Form v-slot="$form" :resolver @submit="submit">
                 <div class="flex flex-col gap-2 mt-3 mb-8">
                     <label for="bsky-post">Post URL</label>
                     <InputText id="bsky-post" v-model="postURL" 
@@ -40,12 +40,12 @@
                         It will only gather replies to the root post, not replies of replies
                     </Message>
                     <Message 
-                        v-if="$form.addReplies?.invalid" 
+                        v-if="!isAddFieldsValidated" 
                         severity="error" 
                         size="small" 
                         variant="simple"
                     >
-                        {{ $form.addReplies?.error.message }}
+                        At least one is required
                     </Message>
                 </div>
 
@@ -55,12 +55,12 @@
                         <label for="add-reposts">Add users who reposted to the raffle</label>
                     </div>
                     <Message 
-                        v-if="$form.addReposts?.invalid" 
+                        v-if="!isAddFieldsValidated" 
                         severity="error" 
                         size="small" 
                         variant="simple"
                     >
-                        {{ $form.addReposts?.error.message }}
+                        At least one is required
                     </Message>
                 </div>
 
@@ -82,7 +82,10 @@
                 <div class="flex flex-col gap-2 mt-3 items-end">
                     <div class="flex justify-end gap-2">
                         <Button type="button" label="Cancel" severity="secondary" @click="visible = false" />
-                        <Button type="submit" label="Add" :icon="isFetching ? 'pi pi-spin pi-spinner' : ''" :disabled="isFetching" />
+                        <Button 
+                            type="submit" label="Add" 
+                            :icon="isFetching ? 'pi pi-spin pi-spinner' : ''" :disabled="!isAddFieldsValidated || isFetching" 
+                        />
                     </div>
                     <Message 
                         v-if="isFetching && (addReposts || mustBeAFollower || mustHaveReposted)" 
@@ -98,7 +101,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useGetBskyParticipants } from '@/composables/useGetBskyParticipants'
 import { useToast } from "primevue/usetoast"
 
@@ -113,16 +116,12 @@ const mustBeAFollower = ref(false)
 const mustHaveReposted = ref(false)
 const dialogInfo = ref()
 
+const isAddFieldsValidated = computed(() => addReplies.value || addReposts.value)
 const resolver = ({ values }) => {
     const errors = {}
 
     if (!values.postURL) {
         errors.postURL = [{ message: 'Post URL is required.' }]
-    }
-
-    if (!addReplies.value && !addReposts.value) {
-        errors.addReplies = [{ message: 'At least one is required' }]
-        errors.addReposts = [{ message: 'At least one is required' }]
     }
 
     return { values, errors }
