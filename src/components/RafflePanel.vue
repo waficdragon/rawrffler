@@ -37,7 +37,7 @@ const dialogs = defineModel('dialogs')
 const numberOfWinners = defineModel('numberOfWinners')
 const { participants, displayWinnersList }  = defineProps(['participants', 'displayWinnersList'])
 
-const maxWinners = computed(() => participants.length -1)
+const maxWinners = computed(() => participants.length < 1 ? 1 : participants.length -1)
 
 watch(() => displayWinnersList, () => {
     if (participants.length && (participants.length < numberOfWinners.value)) {
