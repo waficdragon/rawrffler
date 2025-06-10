@@ -20,9 +20,8 @@ export async function useGetBskyParticipants(
     const actor = await getActor(hostHandle)
     const did = actor.did
 
-    let usersIterator: Map<string, any>
     const users = new Map<string, RaffleUser>()
-    let [replies, followers, reposts] = [null, null, null]
+    let [usersIterator, replies, followers, reposts] = [null, null, null, null]
 
     if (opts.addReplies) {
         replies = await getThreadUsers(did, postId)
@@ -31,7 +30,7 @@ export async function useGetBskyParticipants(
     
     if (opts.addReposts || opts.mustHaveReposted) {
         reposts = await getRepostedBy(did, postId)
-        usersIterator = new Map([...usersIterator, ...reposts]) ?? reposts
+        usersIterator = usersIterator ? new Map([...usersIterator, ...reposts]) : reposts
     }
 
     if (opts.mustBeAFollower) {
