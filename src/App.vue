@@ -4,7 +4,7 @@
 
   <Header />
 
-  <main class="w-10/10 md:w-9/10 mx-auto px-[5px]">
+  <main class="w-10/10 md:w-9/10 lg:w-8/10 2xl:w-7/10 mx-auto px-[5px]">
 
     <Dialogs 
       v-model="dialogs"

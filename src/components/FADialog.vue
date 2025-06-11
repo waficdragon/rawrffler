@@ -1,6 +1,6 @@
 <template>
     <div class="card flex justify-center">
-        <Dialog v-model:visible="dialogs.openFADialog" modal class="max-w-[25rem] sm:mx-0 !mx-[5px]" @hide="postURL = ''">
+        <Dialog v-model:visible="dialogs.openFADialog" modal class="max-w-[25rem] sm:mx-0 !mx-[5px]" @hide="onHideDialog">
             <template #header>
                 <Button icon="pi pi-question" class="min-w-[40px]" rounded aria-label="Dialog Help" @click="e => dialogInfo.toggle(e)" />
                 <Popover ref="dialogInfo" class="w-full max-w-[350px]">
@@ -11,7 +11,7 @@
             </template>
 
             <Form v-slot="$form" :resolver validateOnSubmit @submit="submit">
-                <div class="flex flex-col gap-2 mt-3 mb-6">
+                <div class="flex flex-col gap-2 mt-3 mb-4">
                     <label for="fa-post">Post or journal URL</label>
                     <InputText id="fa-post" v-model="postURL" 
                         name="postURL" aria-describedby="post-help" autoFocus 
@@ -32,12 +32,25 @@
                     </Message>
                 </div>
 
-                <div class="flex items-center gap-2 mb-5">
+                <div class="flex flex-col gap-2 mt-3 mb-8">
+                    <FloatLabel variant="in">
+                        <label for="fa-post">Optional text key</label>
+                        <InputText id="fa-post" v-model="mustContainKey" 
+                            name="mustContainKey" aria-describedby="must-contain-key-help"
+                            type="text" :disabled="isFetching"
+                        />
+                    </FloatLabel>
+                    <Message size="small" id="must-contain-key-help" severity="secondary" variant="simple">
+                        Only gather comments that contain the key specified above. Leave it empty to process all comments
+                    </Message>
+                </div>
+
+                <div class="flex items-center gap-2 mb-6">
                     <Checkbox v-model="removeHost" inputId="remove-host" binary :disabled="isFetching" />
                     <label for="remove-host">Remove Host from the results</label>
                 </div>
 
-                <div class="flex flex-wrap items-center mb-8 gap-2">
+                <div class="flex flex-wrap items-center mb-9 gap-2">
                     <Message size="small" id="post-help" severity="secondary" variant="simple">
                         Private profile or Mature/Adult post?
                     </Message>
@@ -63,6 +76,7 @@ const toast = useToast()
 const dialogs = defineModel({ required: true })
 const emit = defineEmits(['addParticipants'])
 const postURL = ref('')
+const mustContainKey = ref('')
 const removeHost = ref(true)
 const dialogInfo = ref()
 
@@ -81,7 +95,10 @@ const submit = async ({ valid }) => {
     if (valid) {
         try {
             isFetching.value = true
-            const participants = await useGetFAParticipants(postURL.value, { removeHost: removeHost.value })
+            const participants = await useGetFAParticipants(postURL.value, { 
+                removeHost: removeHost.value,
+                mustContainKey: mustContainKey.value
+            })
             emit('addParticipants', participants)
             dialogs.value.openFADialog = false
         } catch (error) {
@@ -90,5 +107,10 @@ const submit = async ({ valid }) => {
             isFetching.value = false
         }
     }
+}
+
+const onHideDialog = () => {
+    postURL.value = ''
+    mustContainKey.value = ''
 }
 </script>

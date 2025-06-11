@@ -1,7 +1,7 @@
 <template>
   <footer class="my-[1rem]">
     <divider />
-    <div class="flex flex-col sm:flex-row sm:items-center gap-2 items-start justify-between w-10/10 md:w-9/10 mx-auto">
+    <div class="flex flex-col sm:flex-row sm:items-center gap-2 items-start justify-between w-10/10 md:w-9/10 lg:w-8/10 2xl:w-7/10 mx-auto">
         <div>
             <Button as="a" icon="pi pi-home" label="waficdragon.com" variant="link" href="https://waficdragon.com" />
         </div>

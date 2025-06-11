@@ -1,7 +1,10 @@
 import { RaffleUser } from "@/types/RaffleUser"
 import { getFAMarkup } from "@/fetch/furaffinity"
 
-export async function useGetFAParticipants(postURL: string, opts: { removeHost: boolean }): Promise<RaffleUser[]> {
+export async function useGetFAParticipants(postURL: string, opts: { 
+    removeHost: boolean,
+    mustContainKey: string
+}): Promise<RaffleUser[]> {
 
     if (!postURL.startsWith('https://')) {
         postURL = 'https://' + postURL
@@ -26,7 +29,11 @@ export async function useGetFAParticipants(postURL: string, opts: { removeHost: 
     const hostDisplayName = doc.querySelector('.submission-id-container .c-usernameBlockSimple__displayName')?.getAttribute('title').trim() ||
                             doc.querySelector('.c-usernameBlock.username-in-nav-bar .c-usernameBlock__userName').textContent.trim().substring(1)
 
-    for (const comment of Array.from(comments)) {
+    for (const comment of [...comments]) {
+        if (opts.mustContainKey) {
+            const text = (comment.querySelector('comment-user-text') as HTMLElement).innerText.toLowerCase()
+            if (!text.includes(opts.mustContainKey.toLowerCase())) continue
+        }
         const image = (comment.querySelector('.avatar img') as HTMLImageElement).src
         const userName = comment.querySelector("comment-username .js-userName-block").textContent.trim().substring(1)
         const name = comment.querySelector("comment-username .js-displayName").textContent
