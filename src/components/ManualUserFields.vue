@@ -18,7 +18,15 @@
             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2">
                 <IconField>
                     <InputIcon class="pi pi-link" />
-                    <InputText v-model="image" class="w-full" placeholder="Image link or base64" size="small" autofocus @keydown.escape="closeImageMenu" />
+                    <InputText 
+                        v-model="image"
+                        @update:modelValue="emit('updateField:image', image)"
+                        class="w-full" 
+                        placeholder="Image link or base64" 
+                        size="small" 
+                        autofocus 
+                        @keydown.escape="closeImageMenu" 
+                    />
                 </IconField>
                 <span class="opacity-50">or</span>
                 <FileUpload
