@@ -115,6 +115,7 @@ const roll = () => {
 
 const onHideModal = () => {
   clearTimeout(timeout)
+  isRunning.value = false
   if (winners.value.length) {
     displayWinnersList.value = [...winnersList.value]
     winners.value = []
