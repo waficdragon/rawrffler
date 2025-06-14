@@ -1,6 +1,6 @@
 <template>
   <header class="mb-[1rem] sm:mb-[3rem]">
-    <div class="flex flex-col sm:flex-row sm:items-center items-start justify-between w-10/10 md:w-9/10 mx-auto">
+    <div class="flex flex-col sm:flex-row sm:items-center items-start justify-between w-10/10 md:w-9/10 lg:w-8/10 2xl:w-7/10 mx-auto">
       <div class="text-xl m-3">
         Rawrffler!
       </div>
@@ -15,6 +15,27 @@
             href="https://github.com/waficdragon/rawrffler"
             icon="pi pi-github"
         />
+
+        <Button 
+            icon="pi pi-info-circle"
+            size="small"
+            severity="secondary"
+            @click="e => issuesMenu.toggle(e)"
+        />
+        <Popover ref="issuesMenu" class="w-full max-w-[350px]">
+            Had any suggestions / Found any bugs? Feel free to either 
+            <Button 
+                type="link" 
+                variant="text" 
+                icon="pi pi-pen-to-square" 
+                as="a" 
+                label="open an issue" 
+                target="_blank" 
+                href="https://github.com/waficdragon/rawrffler/issues" 
+            /> 
+            or send me a DM to my socials
+        </Popover>
+
         <Button 
             icon="pi pi-palette"
             size="small"
@@ -34,13 +55,14 @@
                 />
             </div>
         </Popover>
-          <Button
+        
+        <Button
             @click="switchThemeMode"
             severity="secondary" 
             aria-label="Toggle dark mode"
             size="small"
             :icon="`${isDarkMode ? 'pi pi-moon' : 'pi pi-sun'}`"
-          />
+        />
       </div>
     </div>
     <divider class="!mt-0" />
@@ -52,6 +74,7 @@ import { ref, onMounted } from 'vue'
 import { updatePrimaryPalette } from '@primeuix/themes'
 
 const themeColorsMenu = ref()
+const issuesMenu = ref()
 const isDarkMode = ref(false)
 
 const colors = ["emerald", "green", "lime", "red", "orange", "amber", "yellow", "teal", "cyan", "sky", "blue", "indigo", "violet", "purple", "fuchsia", "pink", "rose", "slate", "gray", "zinc", "neutral", "stone"]

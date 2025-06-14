@@ -35,7 +35,6 @@ export async function useGetBskyParticipants(
 
     if (opts.mustBeAFollower) {
         followers = await getFollowers(did)
-        usersIterator = usersIterator ?? followers
     }
 
     for (const user of [...usersIterator.values()]) {

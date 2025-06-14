@@ -23,20 +23,34 @@
                         <AccordionHeader>View code</AccordionHeader>
                         <AccordionContent>
                             <div class="flex items-center gap-2 mb-5">
-                                <Checkbox v-model="removeHost" inputId="remove-alt-host" binary :disabled="isFetching" />
+                                <Checkbox v-model="removeHost" size="small" inputId="remove-alt-host" binary />
                                 <label for="remove-alt-host">Remove Host from the results</label>
                             </div>
-                            <div class="text-end mb-3">
-                                <Button label="Copy" variant="text" icon="pi pi-copy" size="small" @click="copyCode" />
+                            <div class="flex flex-col gap-2 mt-3 mb-8">
+                                <FloatLabel variant="in">
+                                    <label for="fa-post">Optional text key</label>
+                                    <InputText id="fa-post" size="small" v-model="mustContainKey" 
+                                        name="mustContainKey" aria-describedby="must-contain-key-help"
+                                        type="text"
+                                    />
+                                </FloatLabel>
+                                <Message size="small" id="must-contain-key-help" severity="secondary" variant="simple">
+                                    Only gather comments that contain the key specified above. Leave it empty to process all comments
+                                </Message>
                             </div>
-                            <pre id="fa-copy-code" class="white-space-pre overflow-x-auto max-h-[300px] max-w-[70dvw] sm:max-w-[30rem]">
+                            <div class="text-end mb-3">
+                                <Button label="Copy" variant="text" icon="pi pi-copy" @click="copyCode" />
+                            </div>
+                            <pre id="fa-copy-code" class="white-space-pre overflow-x-auto max-h-[200px] max-w-[70dvw] sm:max-w-[30rem]">
 {{`const comments = document.querySelectorAll("comment-container:not(.deleted-comment-container)")
 
 const users = new Map()
 const hostDisplayName = document.querySelector('.submission-id-container .c-usernameBlockSimple__displayName')?.getAttribute('title').trim() ||
                         document.querySelector('.c-usernameBlock.username-in-nav-bar .c-usernameBlock__userName').textContent.trim().substring(1)
 
-for (const comment of Array.from(comments)) {
+for (const comment of [...comments]) {${!mustContainKey ? '' : `
+    const text = comment.querySelector('comment-user-text').innerText.toLowerCase()
+    if (!text.includes(${JSON.stringify(mustContainKey.toLowerCase())})) continue`}
     const image = comment.querySelector('.avatar img').src
     const userName = comment.querySelector("comment-username .js-userName-block").textContent.trim().substring(1)
     const name = comment.querySelector("comment-username .js-displayName").textContent
@@ -85,6 +99,7 @@ const toast = useToast()
 const open = ref('')
 const dialogs = defineModel({ required: true })
 const removeHost = ref(true)
+const mustContainKey = ref('')
 const dialogInfo = ref()
 
 const copyCode = async () => {
