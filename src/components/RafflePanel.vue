@@ -1,21 +1,23 @@
 <template>
-    <div class="flex flex-col sm:flex-row items-start sm:items-end gap-6 justify-between mb-3">
-        <SplitButton 
-            label="Add participants" 
+    <div class="flex flex-col sm:flex-row sm:items-end gap-3 justify-between mb-3">
+        <SplitButton
+            label="Add participants"
             icon="pi pi-user-plus"
-            @click="dialogs.openManualDialog = true" 
-            :model="addParticipantsItems" 
+            @click="dialogs.openManualDialog = true"
+            :model="addParticipantsItems"
+            fluid
         />
-        <div class="flex flex-col gap-1">
+        <div class="flex flex-col gap-3">
             <FloatLabel variant="on">
-                <InputNumber 
-                    v-model="numberOfWinners" 
+                <InputNumber
+                    v-model="numberOfWinners"
                     :allowEmpty="false"
-                    inputClass="max-w-[130px] w-full"
+                    inputClass="sm:max-w-[130px] w-full"
                     :min="1"
                     :max="maxWinners"
-                    buttonLayout="horizontal" 
+                    buttonLayout="horizontal"
                     showButtons
+                    fluid
                 >
                     <template #incrementbuttonicon>
                         <span class="pi pi-plus" />
@@ -52,7 +54,7 @@ const addParticipantsItems = [
         command: () => dialogs.value.openManualDialog = true
     },
     {
-      separator: true  
+        separator: true
     },
     {
         label: 'From FurAffinity',
@@ -73,6 +75,5 @@ const addParticipantsItems = [
         command: () => dialogs.value.openJSONDialog = true
     }
 ]
-
 
 </script>
