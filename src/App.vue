@@ -34,7 +34,8 @@
 
     <RaffleList 
       v-model:participants="participants"
-      v-model:filteredParticipantsWithSearch="filteredParticipantsWithSearch" 
+      v-model:filteredParticipantsWithSearch="filteredParticipantsWithSearch"
+      @participantRemoved="onParticipantRemoved"
     > 
       <IconField v-if="participants.length" class="mb-5">
         <InputIcon class="pi pi-search" />
@@ -81,5 +82,10 @@ const filteredParticipantsWithSearch = computed(() => filteredParticipants.value
 ))
 const addParticipants = (newParticipants: RaffleUser[]) => {
   participants.value.unshift(...newParticipants)
+}
+const onParticipantRemoved = () => {
+    if (numberOfWinners.value >= filteredParticipants.value.length) {
+        numberOfWinners.value = Math.max(1, filteredParticipants.value.length - 1)
+    }
 }
 </script>

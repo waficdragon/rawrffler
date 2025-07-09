@@ -61,8 +61,11 @@ import { RaffleUser } from '@/types/RaffleUser'
 const participants = defineModel<RaffleUser[]>('participants')
 const filteredParticipantsWithSearch = defineModel<RaffleUser[]>('filteredParticipantsWithSearch')
 
+const emit = defineEmits(['participantRemoved'])
+
 const removeParticipant = (id: string) => {
     participants.value = participants.value.filter(user => user.id !== id)
+    emit('participantRemoved')
 }
 
 const shuffleParticipants = () => {
