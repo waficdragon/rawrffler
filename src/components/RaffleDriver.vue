@@ -62,7 +62,6 @@
     <Button 
       label="Start raffle"
       icon="pi pi-play"
-      class="max-w-[210px] w-full"
       size="large" 
       @click="handleRaffle"
       :disabled="!(participants.length > 1)"
