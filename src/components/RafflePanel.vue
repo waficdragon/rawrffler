@@ -1,21 +1,21 @@
 <template>
     <div class="flex flex-col sm:flex-row sm:items-end gap-3 justify-between mb-3">
-        <SplitButton
-            label="Add participants"
+        <SplitButton 
+            label="Add participants" 
             icon="pi pi-user-plus"
-            @click="dialogs.openManualDialog = true"
-            :model="addParticipantsItems"
+            @click="dialogs.openManualDialog = true" 
+            :model="addParticipantsItems" 
             fluid
         />
         <div class="flex flex-col gap-3">
             <FloatLabel variant="on">
-                <InputNumber
-                    v-model="numberOfWinners"
+                <InputNumber 
+                    v-model="numberOfWinners" 
                     :allowEmpty="false"
                     inputClass="sm:max-w-[130px] w-full"
                     :min="1"
                     :max="maxWinners"
-                    buttonLayout="horizontal"
+                    buttonLayout="horizontal" 
                     showButtons
                     fluid
                 >
@@ -54,7 +54,7 @@ const addParticipantsItems = [
         command: () => dialogs.value.openManualDialog = true
     },
     {
-        separator: true
+      separator: true  
     },
     {
         label: 'From FurAffinity',
@@ -75,5 +75,6 @@ const addParticipantsItems = [
         command: () => dialogs.value.openJSONDialog = true
     }
 ]
+
 
 </script>
